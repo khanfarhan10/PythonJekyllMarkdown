@@ -14,20 +14,29 @@ replaceImgCaption = True
 PrependPath = "/assets/images/"
 removeSpaces = True
 debug = False
-
+ignoreDone = False
 
 
 
 lst = os.listdir(INPUT_FOLDER)
 
+
 if NOTEBOOK_CONVERTOR:
     for each in lst:
+        run_nb = False
         # os.system('ls -l')
         if each.endswith(".ipynb"):
             FilePath  = os.path.join(INPUT_FOLDER ,each)
             # ExecutionCommand  = f"ipython nbconvert --to markdown {FilePath}"
-            ExecutionCommand  = f"jupyter nbconvert --to markdown {FilePath}"
-            os.system(ExecutionCommand)
+            if ignoreDone:
+                md_path = each.replace(".ipynb",".md")
+                if not os.path.exists(md_path):
+                    run_nb = True
+            else:
+                run_nb = True
+            if run_nb:
+                ExecutionCommand  = f"jupyter nbconvert --to markdown {FilePath}"
+                os.system(ExecutionCommand)
        
 """ 
 ################### FIX THE PATHS TO IMAGES
@@ -36,7 +45,7 @@ if NOTEBOOK_CONVERTOR:
 Convert these to "/assets/images/Arduino_1.jpg"
 """
 
-if IMAGE_PATH_FIXER:
+if IMAGE_PATH_FIXER and not ignoreDone:
     print("Shifting Notebook Image Paths : Prepending Paths to",PrependPath)
     for each in lst:
         # os.system('ls -l')
