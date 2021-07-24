@@ -9,11 +9,11 @@ import re
 INPUT_FOLDER = os.path.join(os.getcwd(),"Sample_Notebooks")
 
 NOTEBOOK_CONVERTOR = True # True
-IMAGE_PATH_FIXER = True
+IMAGE_PATH_FIXER = False
 replaceImgCaption = True
 PrependPath = "/assets/images/"
 removeSpaces = True
-debug = True
+debug = False
 
 
 
