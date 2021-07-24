@@ -5,11 +5,16 @@ Make sure you have jupyter installed and or ipython configured early
 """
 import os
 import re
+
 INPUT_FOLDER = os.path.join(os.getcwd(),"Sample_Notebooks")
-IMAGE_PATH_FIXER = False
+
 NOTEBOOK_CONVERTOR = True # True
+IMAGE_PATH_FIXER = True
 replaceImgCaption = True
 PrependPath = "/assets/images/"
+removeSpaces = True
+debug = True
+
 
 
 
@@ -52,14 +57,23 @@ if IMAGE_PATH_FIXER:
                     basepath = os.path.basename(data_path)
                     if replaceImgCaption:
                         data_caption = basepath
-                    new_data_path = os.path.join(PrependPath,basepath)
+                    new_data_path = os.path.join(PrependPath,data_path)
                     new_img_line = f"![{data_caption}]({new_data_path})"
                     new_data.append(new_img_line)
                 else:
-                    new_data.append(e)
+                    if removeSpaces :
+                        if not (e=="\n" or e=="" or e.strip()==''):
+                            new_data.append(e)
+                    else:
+                        new_data.append(e)
+
+                    
+            if debug==True:
+                for d in new_data:
+                    print(d)
             with open(FilePath, 'w') as f:
                 for i in new_data:
-                    f.write('%s\n'%i)
+                    f.write('%s'%i)
 	
 
 print("Finished Processing!")
