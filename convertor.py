@@ -9,7 +9,7 @@ import re
 INPUT_FOLDER = os.path.join(os.getcwd(),"Sample_Notebooks")
 
 NOTEBOOK_CONVERTOR = True # True
-IMAGE_PATH_FIXER = False
+IMAGE_PATH_FIXER = True
 replaceImgCaption = True
 PrependPath = "/assets/images/"
 removeSpaces = True
@@ -75,12 +75,12 @@ if IMAGE_PATH_FIXER and not ignoreDone:
                             new_data.append(e)
                     else:
                         new_data.append(e)
-
+            NewFilePath  = os.path.join(INPUT_FOLDER ,str("Fixed_")+ each)
                     
             if debug==True:
                 for d in new_data:
                     print(d)
-            with open(FilePath, 'w') as f:
+            with open(NewFilePath, 'w') as f:
                 for i in new_data:
                     f.write('%s'%i)
 	
